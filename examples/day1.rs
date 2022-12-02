@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use itertools::Itertools;
 
-pub fn day1() -> anyhow::Result<()> {
+pub fn main() {
     let lines = include_str!("day1.txt").lines();
 
     let mut calories: HashMap<usize, usize> = HashMap::new();
@@ -25,6 +25,4 @@ pub fn day1() -> anyhow::Result<()> {
     println!("{:?}", max_calories_single_elf);
     let max_calories: usize = calories[0..3].into_iter().sum();
     println!("{:?}", max_calories);
-
-    Ok(())
 }
