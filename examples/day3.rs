@@ -1,8 +1,9 @@
-use std::collections::BTreeSet;
 use itertools::Itertools;
+use std::collections::BTreeSet;
 
 fn calc_score(input: &str) -> u32 {
-    input.lines()
+    input
+        .lines()
         .map(|line| {
             let (l, r) = line.split_at(line.len() / 2);
 
@@ -10,12 +11,10 @@ fn calc_score(input: &str) -> u32 {
             let r = r.chars().collect::<BTreeSet<_>>();
 
             l.intersection(&r)
-                .map(|c| {
-                    match c {
-                        'a'..='z' => (1 + (*c as u8 - 'a' as u8)) as u32,
-                        'A'..='Z' => (27 + (*c as u8 - 'A' as u8)) as u32,
-                        _ => panic!()
-                    }
+                .map(|c| match c {
+                    'a'..='z' => (1 + (*c as u8 - 'a' as u8)) as u32,
+                    'A'..='Z' => (27 + (*c as u8 - 'A' as u8)) as u32,
+                    _ => panic!(),
                 })
                 .sum::<u32>()
         })
@@ -23,7 +22,8 @@ fn calc_score(input: &str) -> u32 {
 }
 
 fn calc_score2(input: &str) -> u32 {
-    input.lines()
+    input
+        .lines()
         .chunks(3)
         .into_iter()
         .map(|mut chunk| {
@@ -34,12 +34,10 @@ fn calc_score2(input: &str) -> u32 {
             let i = a.intersection(&b).cloned().collect::<BTreeSet<_>>();
 
             i.intersection(&c)
-                .map(|c| {
-                    match c {
-                        'a'..='z' => (1 + (*c as u8 - 'a' as u8)) as u32,
-                        'A'..='Z' => (27 + (*c as u8 - 'A' as u8)) as u32,
-                        _ => panic!()
-                    }
+                .map(|c| match c {
+                    'a'..='z' => (1 + (*c as u8 - 'a' as u8)) as u32,
+                    'A'..='Z' => (27 + (*c as u8 - 'A' as u8)) as u32,
+                    _ => panic!(),
                 })
                 .sum::<u32>()
         })
@@ -57,23 +55,27 @@ mod tests {
 
     #[test]
     pub fn test() {
-        let score = calc_score(r"vJrwpWtwJgWrhcsFMMfFFhFp
+        let score = calc_score(
+            r"vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
-CrZsJsPPZsGzwwsLwLmpwMDw");
+CrZsJsPPZsGzwwsLwLmpwMDw",
+        );
         assert_eq!(score, 157);
     }
 
     #[test]
     pub fn test_part2() {
-        let score = calc_score2(r"vJrwpWtwJgWrhcsFMMfFFhFp
+        let score = calc_score2(
+            r"vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
-CrZsJsPPZsGzwwsLwLmpwMDw");
+CrZsJsPPZsGzwwsLwLmpwMDw",
+        );
         assert_eq!(score, 70);
     }
 }

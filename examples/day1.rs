@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use itertools::Itertools;
+use std::collections::HashMap;
 
 pub fn main() {
     let lines = include_str!("day1.txt").lines();
@@ -15,7 +15,8 @@ pub fn main() {
         }
     }
 
-    let calories = calories.into_iter()
+    let calories = calories
+        .into_iter()
         .sorted_by(|a, b| a.1.cmp(&b.1))
         .map(|e| e.1)
         .rev()

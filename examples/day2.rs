@@ -2,7 +2,7 @@
 enum Shape {
     Rock,
     Paper,
-    Scissors
+    Scissors,
 }
 
 impl Shape {
@@ -11,7 +11,7 @@ impl Shape {
             'A' | 'X' => Shape::Rock,
             'B' | 'Y' => Shape::Paper,
             'C' | 'Z' => Shape::Scissors,
-            _ => panic!()
+            _ => panic!(),
         }
     }
 
@@ -36,7 +36,7 @@ impl Outcome {
             'X' => Outcome::Lose,
             'Y' => Outcome::Draw,
             'Z' => Outcome::Win,
-            _ => panic!()
+            _ => panic!(),
         }
     }
 
@@ -50,7 +50,8 @@ impl Outcome {
 }
 
 fn calc_score(input: &str) -> u32 {
-    input.lines()
+    input
+        .lines()
         .map(|line| {
             let theirs = Shape::from(line.chars().nth(0).unwrap());
             let ours = Shape::from(line.chars().nth(2).unwrap());
@@ -60,7 +61,7 @@ fn calc_score(input: &str) -> u32 {
                 (Shape::Rock, Shape::Paper) => Outcome::Win,
                 (Shape::Scissors, Shape::Rock) => Outcome::Win,
                 (_, _) if theirs == ours => Outcome::Draw,
-                _ => Outcome::Lose
+                _ => Outcome::Lose,
             };
 
             ours.score() + outcome.score()
@@ -69,7 +70,8 @@ fn calc_score(input: &str) -> u32 {
 }
 
 fn calc_score_part2(input: &str) -> u32 {
-    input.lines()
+    input
+        .lines()
         .map(|line| {
             let theirs = Shape::from(line.chars().nth(0).unwrap());
             let outcome = Outcome::from(line.chars().nth(2).unwrap());
@@ -91,7 +93,10 @@ fn calc_score_part2(input: &str) -> u32 {
 
 pub fn main() {
     println!("score: {}", calc_score(include_str!("day2.txt")));
-    println!("score part 2: {}", calc_score_part2(include_str!("day2.txt")));
+    println!(
+        "score part 2: {}",
+        calc_score_part2(include_str!("day2.txt"))
+    );
 }
 
 #[cfg(test)]
@@ -100,9 +105,11 @@ mod tests {
 
     #[test]
     fn test() {
-        let score = calc_score(r"A Y
+        let score = calc_score(
+            r"A Y
 B X
-C Z");
+C Z",
+        );
         assert_eq!(score, 15);
     }
 }
