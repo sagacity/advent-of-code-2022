@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 gcollections = "1"
+glam = "0.22"
 intervallum = "1"
 itertools = "0.10.5"
 nom = "7"
